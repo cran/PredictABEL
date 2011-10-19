@@ -17,7 +17,8 @@ predictor variables.}
 will be saved under \code{filename}. When \code{cID} is not specified, the output is not saved.}
 \item{filename}{Name of the output file in which the ID number and 
 estimated predicted risks will be saved. The file is saved in the working  
-directory as a txt file. When no \code{filename} is specified, the output is not saved.}}
+directory as a txt file. Example: filename="name.txt". When no \code{filename} 
+is specified, the output is not saved.}}
 \examples{# specify dataset with outcome and predictor variables
 data(ExampleData)
 # specify column number of the outcome variable
@@ -39,4 +40,4 @@ cNonGenPreds=cNonGenPred, cNonGenPredsCat=cNonGenPredCat,
 cGenPreds=cGenPred, cGenPredsCat=cGenPredCat)
 
 # obtain predicted risks 
-predRisk <- predRisk(riskModel=riskmodel, filename="name.txt")}
+predRisk <- predRisk(riskModel=riskmodel)}

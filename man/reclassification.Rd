@@ -13,6 +13,7 @@ individuals with outcome were almost \code{x\%} more likely to move up a categor
 IDI equal to \code{x\%} means that the difference in average 
 predicted risks between the individuals with and without the outcome  
 increased by \code{x\%} in the updated model.
+The function requires predicted risks estimated by using two separate risk 
 models. Predicted risks can be obtained using the functions
 \code{\link{fitLogRegModel}} and \code{\link{predRisk}}
 or be imported from other methods or packages.}
@@ -33,9 +34,9 @@ Med 2008;27(2):157-172; discussion 207-212.}
 \arguments{\item{data}{Data frame or matrix that includes the outcome and 
 predictors variables.}
 \item{cOutcome}{Column number of the outcome variable.}
-\item{predrisk1}{Vector of predicted risks of all individuals using initial(old) 
+\item{predrisk1}{Vector of predicted risks of all individuals using initial
 model.}
-\item{predrisk2}{Vector of predicted risks of all individuals using updated(new) 
+\item{predrisk2}{Vector of predicted risks of all individuals using updated
 model.}
 \item{cutoff}{Cutoff values for risk categories. 
 Define the cut-off values as \code{c(0,...,1)}. 

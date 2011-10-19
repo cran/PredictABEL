@@ -1,9 +1,8 @@
 \name{plotPriorPosteriorRisk}
 \alias{plotPriorPosteriorRisk}
 \title{Function to plot posterior risks against prior risks.}
-\usage{plotPriorPosteriorRisk(data, priorrisk, posteriorrisk, cOutcome, 
-plottitle, xlabel, ylabel, rangeaxis, plotAll=TRUE, labels, 
-filename, fileplot, plottype)}
+\usage{plotPriorPosteriorRisk(data, priorrisk, posteriorrisk, cOutcome, plottitle, 
+xlabel, ylabel, rangeaxis, plotAll=TRUE, labels, filename, fileplot, plottype)}
 \description{Function to plot posterior risks against prior risks.}
 \details{The function creates a plot of posterior risks (predicted risks using 
 the updated model) against prior risks (predicted risks using the initial 

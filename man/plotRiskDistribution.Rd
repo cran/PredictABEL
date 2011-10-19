@@ -1,11 +1,9 @@
 \name{plotRiskDistribution}
 \alias{plotRiskDistribution}
-\title{Function to plot histogram of risks separated for individuals with and 
-without the outcome of interest.}
+\title{Function to plot histogram of risks separated for individuals with and without the outcome of interest.}
 \usage{plotRiskDistribution(data, cOutcome, risks, interval, rangexaxis, 
 rangeyaxis, plottitle, xlabel, ylabel, labels, fileplot, plottype)}
-\description{Function to plot histogram of risks separated for individuals with 
-and without the outcome of interest.}
+\description{Function to plot histogram of risks separated for individuals with and without the outcome of interest.}
 \value{The function creates the histogram of risks separated for individuals 
 with and without the outcome of interest.}
 \keyword{hplot}

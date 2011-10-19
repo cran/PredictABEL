@@ -1,7 +1,6 @@
 \name{plotDiscriminationBox}
 \alias{plotDiscriminationBox}
-\title{Function for box plots of predicted risks separately for individuals with
- and without the outcome of interest.}
+\title{Function for box plots of predicted risks separately for individuals with and without the outcome of interest.}
 \usage{plotDiscriminationBox(data, cOutcome, predrisk, labels, plottitle, 
 ylabel, fileplot, plottype)}
 \description{The function produces box plots of predicted risks for individuals with 

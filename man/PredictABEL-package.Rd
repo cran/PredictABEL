@@ -96,15 +96,18 @@ Several functions in this package depend on other R packages:
 
 (4) \code{PBSmodelling}, is used to produce predictiveness curve.}
 \note{The current version of the package includes the basic measures 
-and plots that are used in the assessment of (genetic) risk prediction models. 
+and plots that are used in the assessment of (genetic) risk prediction models and the
+function to construct a simulated dataset that contains individual genotype 
+data, estimated genetic risk and disease status, used for the evaluation of 
+genetic risk models (see Janssens et al, Genet Med 2006). 
 Planned extensions of the package include functions to construct risk 
 models using Cox Proportional Hazards analysis for prospective data and 
-functions to construct simulated data for the evaluation of 
-genetic risk models (see Janssens et al, Genet Med 2006).}
+assess the performance of risk models for time-to-event data.}
 \section{Acknowledgements}{The authors would like to acknowledge Lennart Karssen, 
-Maksim Struchalin and Linda Broer for their valuable comments and 
+Maksim Struchalin and Linda Broer from the Department of Epidemiology, 
+Erasmus Medical Center, Rotterdam for their valuable comments and 
 suggestions to make this package.
-} 
+}
 \author{Suman Kundu  
 
 Yurii S. Aulchenko
@@ -113,18 +116,18 @@ A. Cecile J.W. Janssens}
 \keyword{package}
 \references{S Kundu, YS Aulchenko, CM van Duijn, ACJW Janssens. PredictABEL:
 an R package for the assessment of risk prediction models.
-Eur J Epidemiol 2011. In press. \cr
+Eur J Epidemiol. 2011;26:261-4. \cr
 
 ACJW Janssens, JPA Ioannidis, CM van Duijn, J Little, MJ Khoury.
 Strengthening the Reporting of Genetic Risk Prediction Studies: The GRIPS
-Statement Proposal. Eur J Epidemiol 2011. In press. \cr
+Statement Proposal. Eur J Epidemiol. 2011;26:255-9. \cr
 
 ACJW Janssens, JPA Ioannidis, S Bedrosian, P Boffetta, SM Dolan, N Dowling,
 I Fortier, AN. Freedman, JM Grimshaw, J Gulcher, M Gwinn, MA Hlatky, H Janes,
 P Kraft, S Melillo, CJ O'Donnell, MJ Pencina, D Ransohoff, SD Schully,
 D Seminara, DM Winn, CF Wright, CM van Duijn, J Little, MJ Khoury.
 Strengthening the reporting of genetic risk prediction studies
-(GRIPS)-Elaboration and explanation. Eur J Epidemiol 2011. In press. \cr  
+(GRIPS)-Elaboration and explanation. Eur J Epidemiol. 2011;26:313-37. \cr   
 
 Aulchenko YS, Ripke S, Isaacs A, van Duijn CM. GenABEL: an R package for genome-wide
 association analysis. Bioinformatics 2007;23(10):1294-6.}

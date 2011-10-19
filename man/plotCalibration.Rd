@@ -1,8 +1,8 @@
 \name{plotCalibration}
 \alias{plotCalibration}
 \title{Function for calibration plot and Hosmer-Lemeshow goodness of fit test.}
-\usage{plotCalibration(data, cOutcome, predRisk, groups, 
-rangeaxis, plottitle, xlabel, ylabel, filename, fileplot, plottype)}
+\usage{plotCalibration(data, cOutcome, predRisk, groups, rangeaxis, 
+plottitle, xlabel, ylabel, filename, fileplot, plottype)}
 \description{The function produces a calibration plot and provides Hosmer-Lemeshow 
 goodness of fit test statistics.}
 \details{Hosmer-Lemeshow test statistic is a measure of the fit 
@@ -36,7 +36,7 @@ Hosmer-Lemeshow test. Specification of \code{groups} is optional (default \code{
 \item{ylabel}{Label of y-axis. Specification of \code{ylabel} is optional. Default is "Observed risk".}
 \item{filename}{Name of the output file in which the calibration table is saved. 
 The file is saved as a txt file in the working directory. When  no 
-\code{filename} is specified, the output is not saved.}
+\code{filename} is specified, the output is not saved. Example: filename="calibration.txt"}
 \item{fileplot}{Name of the file that contains the calibation plot.
 The file is saved in the working directory in the format specified under \code{plottype}. Example:
 \code{fileplot="plotname"}. Note that the extension is not specified here.
@@ -65,4 +65,4 @@ groups <- 10
 
 # compute calibration measures and produce calibration plot                          
 plotCalibration(data=ExampleData, cOutcome=cOutcome, predRisk=predRisk, 
-groups=groups, rangeaxis=rangeaxis, filename="calibration.txt")}
+groups=groups, rangeaxis=rangeaxis)}

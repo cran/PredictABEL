@@ -1,10 +1,10 @@
 \name{plotROC}
 \alias{plotROC}
 \title{Function for a receiver operating characteristic curve (ROC) plot and area under the ROC curve (AUC) value.}
-\usage{plotROC(data, cOutcome, predrisk, labels, plottitle, xlabel, 
-ylabel, fileplot, plottype)}
+\usage{plotROC(data, cOutcome, predrisk, labels, plottitle, xlabel, ylabel, 
+fileplot, plottype)}
 \description{The function produces ROC curve and corresponding AUC value with 95\% CI. 
-The function can plot one or  multiple ROC curves in a single plot.}
+The function can plot one or multiple ROC curves in a single plot.}
 \details{The function requirs predicted risks or risk scores and the outcome of 
 interest for all individuals. 
 Predicted risks can be obtained using the functions
@@ -14,7 +14,12 @@ or be imported from other methods or packages.}
 \keyword{htest}
 \keyword{hplot}
 \references{Hanley JA, McNeil BJ. The meaning and use of the area under a  
-receiver operating characteristic (ROC) curve. Radiology 1982;143:29-36.}
+receiver operating characteristic (ROC) curve. Radiology 1982;143:29-36.
+
+
+Tobias Sing, Oliver Sander, Niko Beerenwinkel, Thomas Lengauer.
+ROCR: visualizing classifier performance in R.
+Bioinformatics 2005;21(20):3940-3941.}
 \seealso{\code{\link{predRisk}}, \code{\link{plotRiskDistribution}}}
 \arguments{\item{data}{Data frame or matrix that includes the outcome and 
 predictors variables.}
