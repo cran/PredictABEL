@@ -248,7 +248,7 @@ return(model)
 #'
 #' @param riskModel Name of logistic regression model that can be fitted using
 #' the function \code{\link{fitLogRegModel}}.
-#' @param data Data frame or matrix that includes the outcome, ID number and
+#' @param data Data frame or matrix that includes the ID number and
 #' predictor variables.
 #' @param cID Column number of ID variable. The ID number and predicted risks
 #' will be saved under \code{filename}. When \code{cID} is not specified, the output is not saved.
@@ -297,7 +297,7 @@ function(riskModel, data, cID, filename)
 {
  if (any(class(riskModel) == "glm"))
   {
-   predrisk <- predict(riskModel, type="response")
+   predrisk <- predict(riskModel, newdata=data, type="response")
   }
 else
   {
@@ -1462,15 +1462,22 @@ cat(" _________________________________________\n")
   tab <- cbind(Tab, " % reclassified"= round((rowSums(Tab)-diag(Tab))/rowSums(Tab),2)*100)
   names(dimnames(tab)) <- c("Initial Model", "Updated Model")
   print(tab)
-
 cat(" _________________________________________\n")
 
-  x<-improveProb(x1=as.numeric(c1)*(1/max(as.numeric(c1))),
-  x2=as.numeric(c2)*(1/max(as.numeric(c2))), y=data[,cOutcome])
+c11 <-factor(c1, levels = levels(c1), labels = c(1:length(levels(c1))))
+c22 <-factor(c2, levels = levels(c2), labels = c(1:length(levels(c2))))
+
+  x<-improveProb(x1=as.numeric(c11)*(1/(length(levels(c11)))),
+  x2=as.numeric(c22)*(1/(length(levels(c22)))), y=data[,cOutcome])
+  
+
   y<-improveProb(x1=predrisk1, x2=predrisk2, y=data[,cOutcome])
 
-cat("\n NRI [95% CI]:", round(x$nri,4),"[",round(x$nri-1.96*x$se.nri,4),"-",
+cat("\n NRI(Categorical) [95% CI]:", round(x$nri,4),"[",round(x$nri-1.96*x$se.nri,4),"-",
  round(x$nri+1.96*x$se.nri,4), "]", "; p-value:", round(2*pnorm(-abs(x$z.nri)),5), "\n" )
+
+ cat(" NRI(Continuous) [95% CI]:", round(y$nri,4),"[",round(y$nri-1.96*y$se.nri,4),"-",
+ round(y$nri+1.96*y$se.nri,4), "]", "; p-value:", round(2*pnorm(-abs(y$z.nri)),5), "\n" )
 
 cat(" IDI [95% CI]:", round(y$idi,4),"[",round(y$idi-1.96*y$se.idi,4),"-",
  round(y$idi+1.96*y$se.idi,4), "]","; p-value:", round(2*pnorm(-abs(y$z.idi)),5), "\n")
@@ -1621,8 +1628,8 @@ return(p)
   out<- list(riskModel1=riskmodel1, riskModel2=riskmodel2)
   return(out)
   }
-#' Function to construct a simulated dataset containing individual genotype
-#' data, estimated genetic risk and disease status.
+#' Function to construct a simulated dataset containing individual genotype data, 
+#' genetic risks and disease status for a hypothetical population.
 #' Construct a dataset that contains individual genotype data, genetic risk,
 #' and disease status for a hypothetical population.
 #' The dataset is constructed using simulation in such a way that the frequencies
@@ -1723,21 +1730,28 @@ return(p)
 #' van Duijn CM. Predictive testing for complex diseases using multiple genes:
 #' fact or fiction? Genet Med. 2006;8:395-400.
 #'
-#'
-#' Janssens AC, Moonesinghe R, Yang Q, Steyerberg EW, van Duijn CM, Khoury MJ.
-#' The impact of genotype frequencies on the clinical validity of genomic
-#' profiling for predicting common chronic diseases. Genet Med. 2007;9:528-35.
-#'
+#' Kundu S, Karssen LC, Janssens AC: Analytical and simulation methods for 
+#' estimating the potential predictive ability of genetic profiling: a comparison 
+#' of methods and results. Eur J Hum Genet. 2012 May 30.
+#' 
+#' van Zitteren M, van der Net JB, Kundu S, Freedman AN, van Duijn CM,
+#' Janssens AC. Genome-based prediction of breast cancer risk in the general
+#' population: a modeling study based on meta-analyses of genetic associations.
+#' Cancer Epidemiol Biomarkers Prev. 2011;20:9-22.
 #'
 #' van der Net JB, Janssens AC, Sijbrands EJ, Steyerberg EW. Value of genetic
 #' profiling for the prediction of coronary heart disease.
 #' Am Heart J. 2009;158:105-10.
 #'
+#' Janssens AC, Moonesinghe R, Yang Q, Steyerberg EW, van Duijn CM, Khoury MJ.
+#' The impact of genotype frequencies on the clinical validity of genomic
+#' profiling for predicting common chronic diseases. Genet Med. 2007;9:528-35.
 #'
-#' van Zitteren M, van der Net JB, Kundu S, Freedman AN, van Duijn CM,
-#' Janssens AC. Genome-based prediction of breast cancer risk in the general
-#' population: a modeling study based on meta-analyses of genetic associations.
-#' Cancer Epidemiol Biomarkers Prev. 2011;20:9-22.
+
+
+#'
+#'
+
 #'
 #'
 #' @examples
@@ -1756,7 +1770,7 @@ return(p)
 #' # Obtain the AUC and produce ROC curve
 #' plotROC(data=Data, cOutcome=4, predrisk=Data[,3])
 #'
-"simulatedDataset" <- function(ORfreq, poprisk, popsize, filename)
+"simulatedDataset" <- function(ORfreq, poprisk, popsize, filename) 
 {
 if (missing(poprisk)) {stop("Population disease risk is not specified")}
 if (missing(popsize)) {stop("Total number of individuals is not mentioned")}
@@ -1773,6 +1787,7 @@ f <- (1-p)*s-e
 tabel <- cbind(a,b,c,dd,e,f,g,OR)
 tabel
 }
+
 reconstruct.2x3table <- function(OR1,OR2,p1,p2,d,s){
 	a	<- 1
 	eOR	<- 0
@@ -1818,9 +1833,10 @@ reconstruct.2x3tableHWE <- function(OR,p,d,s){
 	tabel
 }
 
-adjust.postp <- function (pd, LR){
+
+adjust.postp <- function (pd, LR){		
 	odds.diff <- 0
-	prior.odds <- pd/(1-pd)
+	prior.odds <- pd/(1-pd)	
 	for (i in (1:100000)) {
 	Postp <- (prior.odds*LR)/(1+(prior.odds*LR))
 	odds.diff <- (pd-mean(Postp))/ (1-(pd-mean(Postp)))
@@ -1830,42 +1846,46 @@ adjust.postp <- function (pd, LR){
 	Postp
 }
 
-
 func.data <- function(p,d,OR,s,g){
   Data <- matrix (NA,s,4+g)
-  Data[,1] <- rep(0,s)
-	Data[,2] <- rep(1,s)
+  Data[,1] <- rep(0,s)                   
+	Data[,2] <- rep(1,s)									
 	Data[,3] <- rep(0,s)
 	i <- 0
 	while (i < g){
     i <- i+1
     cells2x3 <- rep(NA,9)
     cells2x3 <- if(p[i,2]==0) {reconstruct.2x2table(p=p[i,1],d,OR=OR[i,1],s)} else {if(p[i,2]==1) {reconstruct.2x3tableHWE(OR=OR[i,1],p=p[i,1],d,s)}
-  else {reconstruct.2x3table(OR1=OR[i,1],OR2=OR[i,2],p1=p[i,1],p2=p[i,2],d,s)}}   # reconstruct table for calculation of likelihood ratios for genotypes
-      LREE 	  <- ((cells2x3[1]/d*s)/(cells2x3[2]/(1-d)*s))			# calculate likelihood ratios
+  else {reconstruct.2x3table(OR1=OR[i,1],OR2=OR[i,2],p1=p[i,1],p2=p[i,2],d,s)}}   
+      LREE 	  <- ((cells2x3[1]/d*s)/(cells2x3[2]/(1-d)*s))			
       LREe	  <- ((cells2x3[3]/d*s)/(cells2x3[4]/(1-d)*s))
       LRee	  <- ((cells2x3[5]/d*s)/(cells2x3[6]/(1-d)*s))
-
+ 
  Gene <- if(p[i,2]==0){c(rep(0,((1-p[i,1]-p[i,2])*s)),rep(1,p[i,1]*s),rep(2,p[i,2]*s))}
-     else {c(rep(0,((1-p[i,1]*p[i,1]-2*p[i,1]*(1-p[i,1]))*s)),rep(1,2*p[i,1]*(1-p[i,1])*s),rep(2,p[i,1]*p[i,1]*s))}		# create vector of genotypes for all subjects based on hardy-weinberg distribution of alleles
-		Filler <- s-length(Gene)                               #soms is Gene 1 te subject te kort en dan werkt het niet
-		Gene <- sample(c(Gene,rep(0,Filler)),s,rep=FALSE)
+ else {if(p[i,2]==1) {c(rep(0,(((1-p[i,1])^2)*s)),rep(1,2*p[i,1]*(1-p[i,1])*s),rep(2,p[i,1]*p[i,1]*s))}
+  else {c(rep(0,((1-p[i,1]-p[i,2])*s)),rep(1,p[i,1]*s),rep(2,p[i,2]*s))}}  
+		Filler <- s-length(Gene)                               
+		Gene <- sample(c(Gene,rep(0,Filler)),s,replace=FALSE)
     Data[,4+i] <- Gene
     GeneLR <- ifelse(Gene==0,LRee,ifelse(Gene==1,LREe,LREE))
-
+   
     Data[,1] <- Data[,1]+Gene
-    Data[,2] <- Data[,2]*GeneLR
-
+    Data[,2] <- Data[,2]*GeneLR	
+			
+#	 cat(i,"")
 		}
-
-		Data[,3] <- adjust.postp(pd=d, LR=Data[,2])
-		Data[,4]  <- ifelse(runif(s)<=(Data[,3]), 1, 0)
+		
+		Data[,3] <- adjust.postp(pd=d, LR=Data[,2])				
+		Data[,4]  <- ifelse(runif(s)<=(Data[,3]), 1, 0)  					          	
     Data <- as.data.frame(Data)
     Data
     }
- simulatedData <- func.data (p=ORfreq[,c(3,4)],d=poprisk,OR=ORfreq[,c(1,2)],s=popsize,g=nrow(ORfreq))
+  
+ simulatedData <- func.data  (p=ORfreq[,c(3,4)],d=poprisk,OR=ORfreq[,c(1,2)],s=popsize,g=nrow(ORfreq))   
 
-if (!missing(filename))
+
+if (!missing(filename)) 
 	{write.table( simulatedData,file=filename, row.names=TRUE,sep = "\t")  }
+
  return(simulatedData)
 }

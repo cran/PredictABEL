@@ -1,0 +1,12 @@
+Changes in version 1.2-1 (2012-07-22)
+   * Modified the reclassification function that can handle the zero observation corresponding to a risk category
+   * Modified the reclassification function that can enable to compute the continuous NRI 
+   * Modified the predRisk function which would allow to do prediction with estimated risk model on new data
+
+Changes in version 1.2 (2011-10-19)
+   * Added the function, simulatedDataset, to construct a simulated dataset with genotypes, genetic risks, and disease status for a hypothetical population, which is used for the evaluation of genetic risk models
+   * Modified the function reclassification to include any number of risk categories
+   * Modified the function plotDiscriminationBox which can include any continuous measures (risk scores/ predicted risks) to create box plots for cases and controls
+
+
+

@@ -1,10 +1,9 @@
 Package: PredictABEL
 Title: Assessment of risk prediction models
-Version: 1.2
-Date: 2011-10-19
+Version: 1.2-1
+Date: 2012-07-22
 Author: Suman Kundu, Yurii S. Aulchenko, A. Cecile J.W. Janssens
-Maintainer: Suman Kundu <s.kundu@erasmusmc.nl>, A. Cecile J.W. Janssens
-        <a.janssens@erasmusmc.nl>
+Maintainer: Suman Kundu <s.kundu@erasmusmc.nl>
 Depends: R (>= 2.12.0), Hmisc, ROCR, epitools, PBSmodelling
 Suggests: GenABEL
 Description: PredictABEL includes functions to assess the performance
@@ -25,10 +24,12 @@ Description: PredictABEL includes functions to assess the performance
         specifically written for models that include genetic variables,
         but they can also be applied to models that are based on
         non-genetic risk factors only.  Finally, the package includes
-        function to construct a simulated dataset that contains
-        individual genotype data, estimated genetic risk, and disease
-        status, used for the evaluation of genetic risk models.
+        function to construct a simulated dataset with genotypes,
+        genetic risks, and disease status for a hypothetical
+        population, which is used for the evaluation of genetic risk
+        models.
 License: GPL (>= 2)
-Packaged: 2011-10-19 09:28:23 UTC; lennart
+URL: http://www.genabel.org/packages/PredictABEL
+Packaged: 2012-07-26 09:10:03 UTC; 488810
 Repository: CRAN
-Date/Publication: 2011-10-19 10:07:43
+Date/Publication: 2012-07-27 08:59:29

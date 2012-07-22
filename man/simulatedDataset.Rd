@@ -1,7 +1,7 @@
 \name{simulatedDataset}
 \alias{simulatedDataset}
-\title{Function to construct a simulated dataset containing individual  
-genotype data, estimated genetic risk and disease status.}
+\title{Function to construct a simulated dataset containing individual genotype  
+ data, genetic risks and disease status for a hypothetical population.}
 \usage{simulatedDataset(ORfreq, poprisk, popsize, filename)}
 \description{Construct a dataset that contains individual genotype data, genetic risk,   
 and disease status for a hypothetical population. 
@@ -76,9 +76,15 @@ van Duijn CM. Predictive testing for complex diseases using multiple genes:
 fact or fiction? Genet Med. 2006;8:395-400.
 
 
-Janssens AC, Moonesinghe R, Yang Q, Steyerberg EW, van Duijn CM, Khoury MJ. 
-The impact of genotype frequencies on the clinical validity of genomic 
-profiling for predicting common chronic diseases. Genet Med. 2007;9:528-35.
+Kundu S, Karssen LC, Janssens AC: Analytical and simulation methods for 
+estimating the potential predictive ability of genetic profiling: a comparison 
+of methods and results. Eur J Hum Genet. 2012 May 30.
+
+
+van Zitteren M, van der Net JB, Kundu S, Freedman AN, van Duijn CM, 
+Janssens AC. Genome-based prediction of breast cancer risk in the general 
+population: a modeling study based on meta-analyses of genetic associations. 
+Cancer Epidemiol Biomarkers Prev. 2011;20:9-22.
 
 
 van der Net JB, Janssens AC, Sijbrands EJ, Steyerberg EW. Value of genetic 
@@ -86,10 +92,9 @@ profiling for the prediction of coronary heart disease.
 Am Heart J. 2009;158:105-10.
 
 
-van Zitteren M, van der Net JB, Kundu S, Freedman AN, van Duijn CM, 
-Janssens AC. Genome-based prediction of breast cancer risk in the general 
-population: a modeling study based on meta-analyses of genetic associations. 
-Cancer Epidemiol Biomarkers Prev. 2011;20:9-22.}
+Janssens AC, Moonesinghe R, Yang Q, Steyerberg EW, van Duijn CM, Khoury MJ. 
+The impact of genotype frequencies on the clinical validity of genomic 
+profiling for predicting common chronic diseases. Genet Med. 2007;9:528-35.}
 \arguments{\item{ORfreq}{Matrix with ORs and frequencies of the genetic variants. 
 The matrix contains four columns in which the first two describe ORs and the 
 last two describe the corresponding frequencies. The number of rows in this 

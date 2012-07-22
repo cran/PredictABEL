@@ -2,7 +2,7 @@
 \alias{predRisk}
 \title{Function to compute predicted risks for all individuals in the dataset.}
 \usage{predRisk(riskModel, data, cID, filename)}
-\description{Function to compute predicted risks for all individuals in the dataset.}
+\description{Function to compute predicted risks for all individuals in the (new)dataset.}
 \details{The function computes predicted risks from a specified logistic regression model.   
 The function \code{\link{fitLogRegModel}} can be used to construct such a model.}
 \value{The function returns a vector of predicted risks.}
@@ -11,7 +11,7 @@ The function \code{\link{fitLogRegModel}} can be used to construct such a model.
 \code{\link{plotROC}}, \code{\link{plotPriorPosteriorRisk}}}
 \arguments{\item{riskModel}{Name of logistic regression model that can be fitted using  
 the function \code{\link{fitLogRegModel}}.}
-\item{data}{Data frame or matrix that includes the outcome, ID number and 
+\item{data}{Data frame or matrix that includes the ID number and 
 predictor variables.}
 \item{cID}{Column number of ID variable. The ID number and predicted risks 
 will be saved under \code{filename}. When \code{cID} is not specified, the output is not saved.}

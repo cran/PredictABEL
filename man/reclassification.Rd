@@ -3,14 +3,19 @@
 \title{Function for reclassification table and statistics.}
 \usage{reclassification(data, cOutcome, predrisk1, predrisk2, cutoff)}
 \description{The function creates a reclassification table and provides statistics.}
-\details{The function creates a reclassification table and computes the net        
-reclassification improvement (\code{NRI}) and integrated discrimination   
-improvement (\code{IDI}). A reclassification table indicates the number 
-of individuals who move to another risk category or remain in the same 
-risk category as a result of updating the risk model. NRI equal to \code{x\%}
-means that compared with individuals without outcome, 
+\details{The function creates a reclassification table and computes the 
+categorical and continuous net reclassification improvement (\code{NRI}) and 
+integrated discrimination improvement (\code{IDI}). A reclassification table 
+indicates the number of individuals who move to another risk category or remain 
+in the same risk category as a result of updating the risk model. Categorical \code{NRI} equal to 
+\code{x\%} means that compared with individuals without outcome, 
 individuals with outcome were almost \code{x\%} more likely to move up a category than down.
-IDI equal to \code{x\%} means that the difference in average 
+The function also computes continuous \code{NRI}, which does not require any discrete 
+risk categories and relies on the proportions of individuals with outcome 
+correctly assigned a higher probability and individuals without outcome 
+correctly assigned a lower probability by an updated model compared with the 
+initial model.
+\code{IDI} equal to \code{x\%} means that the difference in average 
 predicted risks between the individuals with and without the outcome  
 increased by \code{x\%} in the updated model.
 The function requires predicted risks estimated by using two separate risk 
@@ -19,7 +24,8 @@ models. Predicted risks can be obtained using the functions
 or be imported from other methods or packages.}
 \value{The function returns the reclassification table, separately  
 for individuals with and without the outcome of interest and the following measures: 
-\item{NRI}{Net Reclassification Improvement with 95\% CI and \code{p-value} of the test}
+\item{NRI (Categorical)}{Categorical Net Reclassification Improvement with 95\% CI and \code{p-value} of the test}
+\item{NRI (Continuous)}{Continuous Net Reclassification Improvement with 95\% CI and \code{p-value} of the test}
 \item{IDI}{Integrated Discrimination Improvement with 95\% CI and \code{p-value} 
 of the test}}
 \keyword{htest}
