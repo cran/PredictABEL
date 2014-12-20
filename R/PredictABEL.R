@@ -1609,7 +1609,7 @@ return(p)
 #'
 "ExampleModels" <- function()
  {
-  data(ExampleData)
+  data(ExampleData, envir = environment())
   cOutcome <- 2
   cNonGenPred1 <- c(3:10)
   cNonGenPredCat1 <- c(6:8)
