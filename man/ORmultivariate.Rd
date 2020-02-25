@@ -52,4 +52,4 @@ cNonGenPreds=cNonGenPred, cNonGenPredsCat=cNonGenPredCat,
 cGenPreds=cGenPred, cGenPredsCat=cGenPredCat)
 
 # obtain multivariate OR(95\% CI) for all predictors of the fitted model
-ORmultivariate(riskModel=riskmodel, filename="multiOR.txt")}
+ORmultivariate(riskModel=riskmodel)}

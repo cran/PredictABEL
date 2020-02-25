@@ -66,4 +66,4 @@ plottitle <- "Risk score versus predicted risk"
 # produce risk score-predicted risk plot
 plotRiskscorePredrisk(data=ExampleData, riskScore=riskScore, predRisk=predRisk, 
 plottitle=plottitle, xlabel=xlabel, ylabel=ylabel, rangexaxis=rangexaxis, 
-rangeyaxis=rangeyaxis, filename="RiskscorePredRisk.txt")}
+rangeyaxis=rangeyaxis)}

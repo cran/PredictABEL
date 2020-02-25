@@ -9,5 +9,11 @@ import(
   Hmisc,
   ROCR,
   epitools,
-  PBSmodelling
+  PBSmodelling,
+grDevices,
+stats,
+utils
 )
+    importFrom("graphics", "abline", "barplot", "boxplot", "legend",
+               "lines", "mtext", "par", "title")
+importFrom("methods", "is")

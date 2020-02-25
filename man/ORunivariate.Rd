@@ -34,5 +34,4 @@ cOutcome <- 2
 cGenPreds <- c(11:13,16)
 
 # compute univariate ORs
-ORunivariate(data=ExampleData, cOutcome=cOutcome, cGenPreds=cGenPreds, 
-filenameGeno="GenoOR.txt", filenameAllele="AlleleOR.txt")}
+ORunivariate(data=ExampleData, cOutcome=cOutcome, cGenPreds=cGenPreds)}

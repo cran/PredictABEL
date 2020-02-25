@@ -295,7 +295,7 @@ return(model)
 "predRisk" <-
 function(riskModel, data, cID, filename)
 {
- if (any(class(riskModel) == "glm"))
+ if (is(riskModel, "glm"))
   {
    predrisk <- predict(riskModel, newdata=data, type="response")
   }
@@ -375,7 +375,7 @@ function(weights, data, cGenPreds, Type )
 {
 riskModel <- weights
 x <- data[, cGenPreds]
-if (any(class(riskModel) == "glm"))
+if (is(riskModel, "glm"))
   {
     if(! setequal(intersect(names(riskModel$coef),colnames(x)),colnames(x)))
     {
@@ -463,8 +463,7 @@ return(as.vector(urs))
 #'  cGenPreds <- c(11:13,16)
 #'
 #'  # compute univariate ORs
-#'  ORunivariate(data=ExampleData, cOutcome=cOutcome, cGenPreds=cGenPreds,
-#' filenameGeno="GenoOR.txt", filenameAllele="AlleleOR.txt")
+#'  ORunivariate(data=ExampleData, cOutcome=cOutcome, cGenPreds=cGenPreds)
 #'
 "ORunivariate" <- function(data, cOutcome,cGenPreds,filenameGeno, filenameAllele )
   {
@@ -610,11 +609,11 @@ names(dimnames(n1)) <- c("", " Allele frequencies for Cases & Controls, and OR(9
 #'  cGenPreds=cGenPred, cGenPredsCat=cGenPredCat)
 #'
 #'  # obtain multivariate OR(95\% CI) for all predictors of the fitted model
-#'   ORmultivariate(riskModel=riskmodel, filename="multiOR.txt")
+#'   ORmultivariate(riskModel=riskmodel)
 #'
 "ORmultivariate" <- function(riskModel, filename)
 {
-if (!any(class(riskModel)=="glm"))
+if (!is(riskModel, "glm"))
 stop("riskModel argument should have 'glm' class")
 sum.coef<-summary(riskModel)$coef
 OR<-exp(sum.coef[,"Estimate"])
@@ -718,7 +717,7 @@ Nag <- Cox/Rmax    # Nagelkerke_R2
 #'  # produce risk score-predicted risk plot
 #' plotRiskscorePredrisk(data=ExampleData, riskScore=riskScore, predRisk=predRisk,
 #' plottitle=plottitle, xlabel=xlabel, ylabel=ylabel, rangexaxis=rangexaxis,
-#' rangeyaxis=rangeyaxis, filename="RiskscorePredRisk.txt")
+#' rangeyaxis=rangeyaxis)
 #'
 "plotRiskscorePredrisk" <-
 function(data, riskScore, predRisk, plottitle, xlabel,
@@ -1083,7 +1082,8 @@ xlabel, ylabel, fileplot, plottype)
    if (missing(plottitle)) {plottitle <- "ROC plot"}
   if (missing(xlabel)) {xlabel<- "1- Specificity"}
   if (missing(ylabel)) {ylabel<- "Sensitivity"}
- if (class(predrisk) == "numeric") {predrisk<- cbind(predrisk)}
+# if (is(predrisk,"numeric")) {predrisk<- cbind(predrisk)}
+  predrisk<- cbind(predrisk)
   a<-c(1:dim(predrisk)[2])
  	for(i in 1:dim(predrisk)[2])
 		{
@@ -1191,7 +1191,8 @@ function(predrisk, rangeyaxis, labels, plottitle, xlabel, ylabel, fileplot, plot
   if (missing(xlabel)) {xlabel<- "Cumulative percentage"}
   if (missing(ylabel)) {ylabel<- "Predicted risks"}
   if (missing(rangeyaxis)) {rangeyaxis<- c(0,1)}
- if (class(predrisk) == "numeric") {predrisk<- cbind(predrisk)}
+# if (is(predrisk,"numeric")) {predrisk<- cbind(predrisk)}
+  predrisk<- cbind(predrisk)
 # if (missing(labels)) {labels <- c(1:dim(predrisk)[2])}
 a<-c(1:dim(predrisk)[2])
 for(i in 1:dim(predrisk)[2])
@@ -1393,6 +1394,8 @@ if((rangexaxis[1]> min(risks))||(rangexaxis[2]< max(risks)))
 #'  @return
 #'   The function returns the reclassification table, separately
 #'  for individuals with and without the outcome of interest and the following measures:
+#'
+#'  Note: when p value is smaller than 0.00001 then report it as <0.00001.
 #'  \item{NRI}{Net Reclassification Improvement with 95\% CI and \code{p-value} of the test}
 #'  \item{IDI}{Integrated Discrimination Improvement with 95\% CI and \code{p-value}
 #'  of the test}
@@ -1469,7 +1472,7 @@ c22 <-factor(c2, levels = levels(c2), labels = c(1:length(levels(c2))))
 
   x<-improveProb(x1=as.numeric(c11)*(1/(length(levels(c11)))),
   x2=as.numeric(c22)*(1/(length(levels(c22)))), y=data[,cOutcome])
-  
+
 
   y<-improveProb(x1=predrisk1, x2=predrisk2, y=data[,cOutcome])
 
@@ -1607,6 +1610,7 @@ return(p)
 #'  # combine output in a list
 #'  ExampleModels <- list(riskModel1=riskmodel1, riskModel2=riskmodel2)
 #'
+utils::globalVariables(c("ExampleData"))
 "ExampleModels" <- function()
  {
   data(ExampleData, envir = environment())
@@ -1628,7 +1632,7 @@ return(p)
   out<- list(riskModel1=riskmodel1, riskModel2=riskmodel2)
   return(out)
   }
-#' Function to construct a simulated dataset containing individual genotype data, 
+#' Function to construct a simulated dataset containing individual genotype data,
 #' genetic risks and disease status for a hypothetical population.
 #' Construct a dataset that contains individual genotype data, genetic risk,
 #' and disease status for a hypothetical population.
@@ -1730,10 +1734,10 @@ return(p)
 #' van Duijn CM. Predictive testing for complex diseases using multiple genes:
 #' fact or fiction? Genet Med. 2006;8:395-400.
 #'
-#' Kundu S, Karssen LC, Janssens AC: Analytical and simulation methods for 
-#' estimating the potential predictive ability of genetic profiling: a comparison 
+#' Kundu S, Karssen LC, Janssens AC: Analytical and simulation methods for
+#' estimating the potential predictive ability of genetic profiling: a comparison
 #' of methods and results. Eur J Hum Genet. 2012 May 30.
-#' 
+#'
 #' van Zitteren M, van der Net JB, Kundu S, Freedman AN, van Duijn CM,
 #' Janssens AC. Genome-based prediction of breast cancer risk in the general
 #' population: a modeling study based on meta-analyses of genetic associations.
@@ -1770,7 +1774,7 @@ return(p)
 #' # Obtain the AUC and produce ROC curve
 #' plotROC(data=Data, cOutcome=4, predrisk=Data[,3])
 #'
-"simulatedDataset" <- function(ORfreq, poprisk, popsize, filename) 
+"simulatedDataset" <- function(ORfreq, poprisk, popsize, filename)
 {
 if (missing(poprisk)) {stop("Population disease risk is not specified")}
 if (missing(popsize)) {stop("Total number of individuals is not mentioned")}
@@ -1834,9 +1838,9 @@ reconstruct.2x3tableHWE <- function(OR,p,d,s){
 }
 
 
-adjust.postp <- function (pd, LR){		
+adjust.postp <- function (pd, LR){
 	odds.diff <- 0
-	prior.odds <- pd/(1-pd)	
+	prior.odds <- pd/(1-pd)
 	for (i in (1:100000)) {
 	Postp <- (prior.odds*LR)/(1+(prior.odds*LR))
 	odds.diff <- (pd-mean(Postp))/ (1-(pd-mean(Postp)))
@@ -1848,43 +1852,43 @@ adjust.postp <- function (pd, LR){
 
 func.data <- function(p,d,OR,s,g){
   Data <- matrix (NA,s,4+g)
-  Data[,1] <- rep(0,s)                   
-	Data[,2] <- rep(1,s)									
+  Data[,1] <- rep(0,s)
+	Data[,2] <- rep(1,s)
 	Data[,3] <- rep(0,s)
 	i <- 0
 	while (i < g){
     i <- i+1
     cells2x3 <- rep(NA,9)
     cells2x3 <- if(p[i,2]==0) {reconstruct.2x2table(p=p[i,1],d,OR=OR[i,1],s)} else {if(p[i,2]==1) {reconstruct.2x3tableHWE(OR=OR[i,1],p=p[i,1],d,s)}
-  else {reconstruct.2x3table(OR1=OR[i,1],OR2=OR[i,2],p1=p[i,1],p2=p[i,2],d,s)}}   
-      LREE 	  <- ((cells2x3[1]/d*s)/(cells2x3[2]/(1-d)*s))			
+  else {reconstruct.2x3table(OR1=OR[i,1],OR2=OR[i,2],p1=p[i,1],p2=p[i,2],d,s)}}
+      LREE 	  <- ((cells2x3[1]/d*s)/(cells2x3[2]/(1-d)*s))
       LREe	  <- ((cells2x3[3]/d*s)/(cells2x3[4]/(1-d)*s))
       LRee	  <- ((cells2x3[5]/d*s)/(cells2x3[6]/(1-d)*s))
- 
+
  Gene <- if(p[i,2]==0){c(rep(0,((1-p[i,1]-p[i,2])*s)),rep(1,p[i,1]*s),rep(2,p[i,2]*s))}
  else {if(p[i,2]==1) {c(rep(0,(((1-p[i,1])^2)*s)),rep(1,2*p[i,1]*(1-p[i,1])*s),rep(2,p[i,1]*p[i,1]*s))}
-  else {c(rep(0,((1-p[i,1]-p[i,2])*s)),rep(1,p[i,1]*s),rep(2,p[i,2]*s))}}  
-		Filler <- s-length(Gene)                               
+  else {c(rep(0,((1-p[i,1]-p[i,2])*s)),rep(1,p[i,1]*s),rep(2,p[i,2]*s))}}
+		Filler <- s-length(Gene)
 		Gene <- sample(c(Gene,rep(0,Filler)),s,replace=FALSE)
     Data[,4+i] <- Gene
     GeneLR <- ifelse(Gene==0,LRee,ifelse(Gene==1,LREe,LREE))
-   
+
     Data[,1] <- Data[,1]+Gene
-    Data[,2] <- Data[,2]*GeneLR	
-			
+    Data[,2] <- Data[,2]*GeneLR
+
 #	 cat(i,"")
 		}
-		
-		Data[,3] <- adjust.postp(pd=d, LR=Data[,2])				
-		Data[,4]  <- ifelse(runif(s)<=(Data[,3]), 1, 0)  					          	
+
+		Data[,3] <- adjust.postp(pd=d, LR=Data[,2])
+		Data[,4]  <- ifelse(runif(s)<=(Data[,3]), 1, 0)
     Data <- as.data.frame(Data)
     Data
     }
-  
- simulatedData <- func.data  (p=ORfreq[,c(3,4)],d=poprisk,OR=ORfreq[,c(1,2)],s=popsize,g=nrow(ORfreq))   
+
+ simulatedData <- func.data  (p=ORfreq[,c(3,4)],d=poprisk,OR=ORfreq[,c(1,2)],s=popsize,g=nrow(ORfreq))
 
 
-if (!missing(filename)) 
+if (!missing(filename))
 	{write.table( simulatedData,file=filename, row.names=TRUE,sep = "\t")  }
 
  return(simulatedData)
