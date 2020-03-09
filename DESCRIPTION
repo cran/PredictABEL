@@ -1,11 +1,11 @@
 Package: PredictABEL
 Title: Assessment of Risk Prediction Models
-Version: 1.2-3
+Version: 1.2-4
 Date: 2020-02-17
 Author: Suman Kundu, Yurii S. Aulchenko, A. Cecile J.W. Janssens
 Maintainer: Suman Kundu <suman_math@yahoo.com>
 Depends: R (>= 2.12.0)
-Imports: Hmisc, ROCR, epitools, PBSmodelling, lazyeval, methods
+Imports: Hmisc, ROCR, PBSmodelling, lazyeval, methods
 Description: We included functions to assess the performance of
  risk models. The package contains functions for the various measures that are
  used in empirical studies, including univariate and multivariate odds ratios
@@ -24,8 +24,8 @@ Description: We included functions to assess the performance of
  genotypes, genetic risks, and disease status for a hypothetical population, which 
  is used for the evaluation of genetic risk models.
 License: GPL (>= 2)
-Packaged: 2020-02-24 19:09:45 UTC; kundus
+Packaged: 2020-03-09 20:50:19 UTC; kundus
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2020-02-25 10:00:08 UTC
+Date/Publication: 2020-03-09 21:20:02 UTC
 RoxygenNote: 7.0.2

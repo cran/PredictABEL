@@ -21,7 +21,7 @@ increased by \code{x\%} in the updated model.
 The function requires predicted risks estimated by using two separate risk 
 models. Predicted risks can be obtained using the functions
 \code{\link{fitLogRegModel}} and \code{\link{predRisk}}
-or be imported from other methods or packages.}
+or be imported from other methods or packages. p-values in NRI and IDI were rounded upto five decimal places.}
 \value{The function returns the reclassification table, separately  
 for individuals with and without the outcome of interest and the following measures: 
 \item{NRI (Categorical)}{Categorical Net Reclassification Improvement with 95\% CI and \code{p-value} of the test}

@@ -26,7 +26,7 @@ Monthly weather review 1950;78:1-3.
 
 Nagelkerke NJ. A note on a general definition of the coefficient
 of determination. Biometrika 1991;78:691-692.}
-\seealso{\code{\link{fitLogRegModel}}, \code{\link{ORunivariate}}}
+\seealso{\code{\link{fitLogRegModel}}}
 \arguments{\item{riskModel}{Name of logistic regression model that can be fitted using  
 the function \code{\link{fitLogRegModel}}.}
 \item{filename}{Name of the output file in which the multivariate    

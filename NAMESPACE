@@ -8,7 +8,6 @@ exportPattern(".")
 import(
   Hmisc,
   ROCR,
-  epitools,
   PBSmodelling,
 grDevices,
 stats,

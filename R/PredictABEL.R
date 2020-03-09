@@ -90,9 +90,7 @@
 #'
 #' (2) \code{ROCR}, is used to produce ROC plots;
 #'
-#' (3) \code{epitools}, is used to compute  univariate odds ratios;
-##'
-#' (4) \code{PBSmodelling}, is used to produce predictiveness curve.
+#' (3) \code{PBSmodelling}, is used to produce predictiveness curve.
 #'
 #' @note The current version of the package includes the basic measures
 #' and plots that are used in the assessment of (genetic) risk prediction models and the
@@ -423,127 +421,6 @@ urs<-pro+(2*num)
 return(as.vector(urs))
 }
 }
-#' Function to compute univariate ORs for genetic predictors. The function computes the univariate ORs with 95\% CIs for genetic predictors.
-#'
-#' The function computes the univariate ORs with 95\% CIs for the specified
-#' genetic variants both per allele and per genotype. The ORs are saved with the data from which they are
-#' calculated. Genotype frequencies are provided for
-#' persons with and without the outcome
-#' of interest. The genotype or allele that is coded as \code{'0'} is considered
-#' as the reference to computes the ORs.
-#'
-#' @param data Data frame or matrix that includes the outcome and
-#' predictors variables.
-#' @param cOutcome Column number of the outcome variable. \code{cOutcome=2}
-#' means that the second column of the dataset is the outcome variable.
-#' @param cGenPreds Column numbers of genetic variables for which the ORs
-#' are calculated.
-#' @param filenameGeno Name of the output file in which the univariate ORs
-#' and frequencies per genotype will be saved. The file is saved in the working directory as
-#' a txt file. When no \code{filenameGeno} is specified, the output is not saved.
-#' @param filenameAllele Name of the output file in which the univariate ORs and
-#' frequencies per allele will be saved. The file is saved in the working
-#' directory as a txt file. When no \code{filenameAllele} is specified, the output is not saved.
-#'
-#' @return The function returns two different tables. One table contains genotype frequencies
-#' and univariate ORs with 95\% CIs and the other contains allele frequencies and
-#' univariate ORs with 95\% CIs.
-#'
-#'
-#' @keywords manip
-#'
-#'
-#' @seealso \code{\link{ORmultivariate}}
-#' @examples
-#' # specify dataset with outcome and predictor variables
-#' data(ExampleData)
-#' # specify column number of the outcome variable
-#'  cOutcome <- 2
-#'  # specify column numbers of genetic predictors
-#'  cGenPreds <- c(11:13,16)
-#'
-#'  # compute univariate ORs
-#'  ORunivariate(data=ExampleData, cOutcome=cOutcome, cGenPreds=cGenPreds)
-#'
-"ORunivariate" <- function(data, cOutcome,cGenPreds,filenameGeno, filenameAllele )
-  {
-  p<- data[,cGenPreds ] # p : A table of Genotype data for all SNP's
-  o<- data[,cOutcome] #  o: the binary outcome variable
-  m1 <- matrix (nrow=dim(p)[2], ncol=19)
-  n1 <- matrix (nrow=dim(p)[2], ncol=12)
-
-  for (i in 1:dim(p)[2])
-	 {
-s<-table(p[,i],o)
-if (dim(s)[1]==1) {s <- rbind(s,c(0,0));s <- rbind(s,c(0,0))}
-if (dim(s)[1]==2) {s <- rbind(s,c(0,0))}
-a<-oddsratio.wald(s)$measure
-b<-oddsratio.wald(s)$data
-c <- matrix (nrow=2, ncol=2)
-c[1,1] <- 2*b[1,1]+b[2,1]
-c[2,1] <- 2*b[3,1]+b[2,1]
-c[1,2] <- 2*b[1,2]+b[2,2]
-c[2,2] <- 2*b[3,2]+b[2,2]
-dimnames(c)[[1]] <- c("Allele-I","Allele-II")
-dimnames(c)[[2]] <- c("0","1")
-d<-oddsratio.wald(c)$measure
-e<-oddsratio.wald(c)$data
-
-	    m1[i,1]<-  colnames(p)[i]
-	    m1[i,2]<-  ( b[1,2])
-	    m1[i,3]<-  ( round((b[1,2]/b[4,2])*100 ,1))
-	    m1[i,4]<-  ( b[2,2])
-	    m1[i,5]<-  ( round((b[2,2]/b[4,2])*100 ,1))
-	    m1[i,6]<-  ( b[3,2])
-	    m1[i,7]<-  ( round((b[3,2]/b[4,2])*100 ,1))
-	    m1[i,8]<-  ( b[1,1])
-	    m1[i,9]<-  ( round((b[1,1]/b[4,1])*100 ,1))
-	    m1[i,10]<- ( b[2,1])
-	    m1[i,11]<- ( round((b[2,1]/b[4,1])*100 ,1))
-	    m1[i,12]<- ( b[3,1])
-	    m1[i,13]<- ( round((b[3,1]/b[4,1])*100 ,1))
-	    m1[i,14]<- ( round(a[2,1] ,2))
-	    m1[i,15]<- ( round(a[2,2] ,2))
-	    m1[i,16]<- ( round(a[2,3] ,2))
-	    m1[i,17]<- ( round(a[3,1] ,2))
-	    m1[i,18]<- ( round(a[3,2] ,2))
-	    m1[i,19]<- ( round(a[3,3] ,2))
-
-	    n1[i,1]<-  colnames(p)[i]
-	    n1[i,2]<-  (e[1,2])
-	    n1[i,3]<-  round((e[1,2]/e[3,2])*100,1)
-	    n1[i,4]<-  e[2,2]
-	    n1[i,5]<-  round((e[2,2]/e[3,2])*100,1)
-	    n1[i,6]<-   e[1,1]
-	    n1[i,7]<-   round((e[1,1]/e[3,1])*100,1)
-	    n1[i,8]<-   e[2,1]
-	    n1[i,9]<-   round((e[2,1]/e[3,1])*100,1)
-	    n1[i,10]<-  round(d[2,1] ,2)
-	    n1[i,11]<-  round(d[2,2] ,2)
-	    n1[i,12]<-  round(d[2,3] ,2)
-
-	}
-
-       m1 <- as.table(m1)
-       dimnames(m1)[[1]] <- c(1:dim(p)[2])
-       dimnames(m1)[[2]] <- c("Name", "0 ","0 (%)", "1 ","1 (%)", "2 ","2 (%)",
-       "0 ","0 (%)", "1 ","1 (%)", "2 ","2 (%)","OR1","CI-Low","CI-high","OR2",
-       "CI-Low","CI-high")
-names(dimnames(m1)) <- c("", " Genotype frequencies for Cases & Controls, and OR(95% CI)")
-     if (!missing(filenameGeno))
-		 write.table(m1,file=filenameGeno, row.names = FALSE,sep = "\t")
-
-       n1 <- as.table(n1)
-       dimnames(n1)[[1]] <- c(1:dim(p)[2])
-       dimnames(n1)[[2]] <- c("Name", "0","0 (%)","1","1 (%)", "0","0 (%)","1",
-       "1 (%)","OR1","CI-Low","CI-high")
-names(dimnames(n1)) <- c("", " Allele frequencies for Cases & Controls, and OR(95% CI) ")
-       if (!missing(filenameAllele))
-       write.table(n1,file=filenameAllele, row.names = FALSE,sep = "\t")
-
-       p<- list(Genotype =m1,  Allelic=n1)
-	return(p)
-  }
 #' Function to obtain multivariate odds ratios from a logistic regression model.
 #' The function estimates multivariate (adjusted) odds ratios (ORs) with
 #' 95\% confidence intervals (CIs) for all the genetic and non-genetic variables
@@ -587,7 +464,7 @@ names(dimnames(n1)) <- c("", " Allele frequencies for Cases & Controls, and OR(9
 #' of determination. Biometrika 1991;78:691-692.
 #'
 #'
-#' @seealso \code{\link{fitLogRegModel}}, \code{\link{ORunivariate}}
+#' @seealso \code{\link{fitLogRegModel}}
 #'
 #' @examples
 #' # specify dataset with outcome and predictor variables
@@ -1377,7 +1254,7 @@ if((rangexaxis[1]> min(risks))||(rangexaxis[2]< max(risks)))
 #' The function requires predicted risks estimated by using two separate risk
 #' models. Predicted risks can be obtained using the functions
 #' \code{\link{fitLogRegModel}} and \code{\link{predRisk}}
-#' or be imported from other methods or packages.
+#' or be imported from other methods or packages.p-values in NRI and IDI were rounded upto five decimal places.
 #'
 #' @param data Data frame or matrix that includes the outcome and
 #' predictors variables.

@@ -1,12 +1,11 @@
-f1459dd513a5c54812286bdd6e0163a0 *DESCRIPTION
-ae1fb6938a3679b2d3871db707b1c2d4 *NAMESPACE
+1f21af7cc84d3b5cea98c815c8d4e354 *DESCRIPTION
+983d9d6970062d2eaa366cfd9982be42 *NAMESPACE
 eee1cfc15756b36c99d157c31920d0b4 *NEWS
-cb2a6763e14684940f63dcf486c3cff0 *R/PredictABEL.R
+6e7246e3c2e9a1501d8296de1cdf3a49 *R/PredictABEL.R
 563dd878393f729c2df84b710483985b *data/ExampleData.RData
 5176db3a2c7655f51524ea87319201b1 *man/ExampleData.Rd
 8f9dbc61917104531b6a9c82dc2d1109 *man/ExampleModels.Rd
-11d5333978892703c642b2107f76767d *man/ORmultivariate.Rd
-a98ffcac8504f65191fdac329c6ad8af *man/ORunivariate.Rd
+558f6babe72c6e703da0cdcc1824c3b9 *man/ORmultivariate.Rd
 a0d47507eb6130031a3ba2d1ed9874c6 *man/PredictABEL-package.Rd
 c84b74555d400a7660ab95014420e1c1 *man/fitLogRegModel.Rd
 880236a9264f1aaa4c327c753ef20ac9 *man/plotCalibration.Rd
@@ -17,6 +16,6 @@ d8ac96def8eb24bef681263c62787d3f *man/plotROC.Rd
 3ad6cfa143f31da8b13a659c9e17d011 *man/plotRiskDistribution.Rd
 2b11819d5de736fe70a4f69f908f1cf0 *man/plotRiskscorePredrisk.Rd
 71da54f3d01f9941c940217a7346b88d *man/predRisk.Rd
-c3c1504d2e77d8b67223a2fe4876513a *man/reclassification.Rd
+b102bb6b0ddc7f38d0bd858093be2c01 *man/reclassification.Rd
 e3a7a106430d6862657b33da2fa0fb2a *man/riskScore.Rd
 1465be1b6a946b479438a7d9f107a588 *man/simulatedDataset.Rd
